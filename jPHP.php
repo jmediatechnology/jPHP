@@ -53,13 +53,13 @@ class jPHP {
 
     /**
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison.
-     * array_search_shell_wildcard() does the same, but it checks by globbing wildcard.
+     * array_search_glob_pattern() does the same, but it checks by globbing wildcard.
      *
      * @param string $pattern
      * @param array $haystack
      * @return boolean
      */
-    public static function array_search_glob_wildcard($pattern, $haystack) {
+    public static function array_search_glob_pattern($pattern, $haystack) {
         $return = false;
 
         if (empty($pattern) || !is_string($pattern) || !is_array($haystack)) {
@@ -79,13 +79,13 @@ class jPHP {
 
     /**
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison.
-     * array_search_regex() does the same, but it checks by regular expression.
+     * array_search_regex_pattern() does the same, but it checks by regular expression.
      *
      * @param string $pattern
      * @param array $haystack
      * @return boolean
      */
-    public static function array_search_regex($pattern, $haystack) {
+    public static function array_search_regex_pattern($pattern, $haystack) {
         $return = false;
 
         if (empty($pattern) || !is_string($pattern) || !is_array($haystack)) {
