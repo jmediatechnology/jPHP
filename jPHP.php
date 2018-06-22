@@ -53,7 +53,7 @@ class jPHP {
 
     /**
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison.
-     * array_search_glob_pattern() does the same, but it checks by globbing wildcard.
+     * array_search_glob_pattern() does the same, but it checks by globbing patterns/standard wildcards.
      *
      * @param string $pattern
      * @param array $haystack
@@ -147,3 +147,4 @@ class jPHP {
     }
 
 }
+
