@@ -1,5 +1,7 @@
 <?php
 
+namespace Xxtract\Helper;
+
 /**
  * jPHP
  *
@@ -104,6 +106,32 @@ class jPHP {
     }
 
     /**
+     * Filter an Array recursively.
+     *
+     * @param array $array The array to be filtered.
+     * @param callable|null $callback The function that defines the filter rules. Return false means filter it.
+     * @param int $flag Define what to pass to the callback function. Key or key & value.
+     *
+     * @return array
+     */
+    public static function array_filter_recursive($array, $callback = null, $flag = 0)  {
+
+        foreach ($array as &$item) {
+            if  (is_array($item)) {
+                $item = self::array_filter_recursive($item, $callback, $flag);
+            }
+        }
+
+        if(isset($callback)){
+            return array_filter($array, $callback);
+        }
+
+        if(!isset($callback)){
+            return array_filter($array);
+        }
+    }
+
+    /**
      * PHP 7 has a built-in is_iterable() function. But PHP 5 doens't have that
      * by default. So, this is the is_iterable() function for PHP 5.
      * Besides that the is_iterable() of PHP 7 says that stdClass is not
@@ -147,4 +175,3 @@ class jPHP {
     }
 
 }
-
