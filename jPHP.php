@@ -123,7 +123,7 @@ class jPHP {
         }
 
         if(isset($callback)){
-            return array_filter($array, $callback);
+            return array_filter($array, $callback, $flag);
         }
 
         if(!isset($callback)){
