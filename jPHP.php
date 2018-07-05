@@ -110,7 +110,7 @@ class jPHP {
      *
      * @param array $array The array to be filtered.
      * @param callable|null $callback The function that defines the filter rules. Return false means filter it.
-     * @param int $flag Define what to pass to the callback function. Key or key & value.
+     * @param int $flag Define what to pass to the callback function. Value (default) or key or both.
      *
      * @return array
      */
