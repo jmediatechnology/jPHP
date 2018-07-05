@@ -4,6 +4,6 @@ It's not possible for in_array() to check if a substring exists in the given arr
 With jPHP you can use `jPHP::in_array_substring($needle, $array)`. 
  
 The function array_search() searches by string comparison, it doesn't search by pattern matching. Fortunately it's possible with jPHP.
-With jPHP you can use `jPHP::array_search_glob_pattern($pattern, $haystack)` or `jPHP::array_search_glob_pattern($pattern, $haystack)`
+With jPHP you can use `jPHP::array_search_glob_pattern($pattern, $haystack)` or `jPHP::array_search_regex_pattern($pattern, $haystack)`
  
 The library jPHP offers a collection of functions that are based on existing php functions but with extended functionality.
