@@ -44,15 +44,18 @@ class jPHP {
             if($isArray) {
                 foreach($needle as $needleItem){
 
-                    if ($strict) {
+                    $occurrenceInt = stripos($value, $needleItem);
+                    if ($occurrenceInt !== false && !$strict) {
+                        $return = true;
+                        continue 2;
+                    }
+                    if ($occurrenceInt !== false && $strict) {
+                        $return = true;
+                    }
+                    if ($strict && $return) {
                         $needleType = gettype($needleItem);
                         $valueType = gettype($value);
                         $return = ($needleType === $valueType ? true : false);
-                    }
-
-                    $occurrenceInt = stripos($value, $needleItem);
-                    if ($occurrenceInt !== false) {
-                        $return = true;
                         continue 2;
                     }
                 }
