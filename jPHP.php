@@ -1,7 +1,5 @@
 <?php
 
-namespace Xxtract\Helper;
-
 /**
  * jPHP
  *
@@ -15,34 +13,62 @@ namespace Xxtract\Helper;
  */
 class jPHP {
 
+// ------------------------- ARRAY FUNCTIONS -----------------------------------
     /**
      * in_array() checks if value exists. It checks by string comparison.
      * in_array_substring() checks if substring exists. It checks by stripos().
      *
-     * @param string $needle
-     * @param array $haystack
+     * @param string|array $needle  The searched value. If needle is a string, the comparison is done by stripos().
+     * @param array $haystack The array.
      * @param boolean $strict
      * @return boolean
      */
     public static function in_array_substring($needle, $haystack, $strict = false) {
         $return = false;
 
-        if (empty($needle) || !is_string($needle) || !is_array($haystack)) {
+        $isString = false;
+        if(is_string($needle)){
+            $isString = true;
+        }
+        $isArray = false;
+        if(is_array($needle)){
+            $isArray = true;
+        }
+
+        if (empty($needle) || ( !$isString && !$isArray ) || !is_array($haystack)) {
             return $return;
         }
 
         foreach ($haystack as $key => $value) {
 
-            // Attention: The haystack of stripos() is using the needle of in_array_substring()
-            $occurrenceInt = stripos($needle, $value);
-            if ($occurrenceInt !== false) {
-                $return = true;
+            if($isArray) {
+                foreach($needle as $needleItem){
+
+                    if ($strict) {
+                        $needleType = gettype($needleItem);
+                        $valueType = gettype($value);
+                        $return = ($needleType === $valueType ? true : false);
+                    }
+
+                    $occurrenceInt = stripos($value, $needleItem);
+                    if ($occurrenceInt !== false) {
+                        $return = true;
+                        continue 2;
+                    }
+                }
             }
 
-            if ($strict) {
-                $needleType = gettype($needle);
-                $valueType = gettype($value);
-                $return = ($needleType === $valueType ? true : false);
+            if ($isString) {
+                $occurrenceInt = stripos($value, $needle);
+                if ($occurrenceInt !== false) {
+                    $return = true;
+                }
+
+                if ($strict) {
+                    $needleType = gettype($needle);
+                    $valueType = gettype($value);
+                    $return = ($needleType === $valueType ? true : false);
+                }
             }
 
             if ($return) {
@@ -114,19 +140,19 @@ class jPHP {
      *
      * @return array
      */
-    public static function array_filter_recursive($array, $callback = null, $flag = 0)  {
+    public static function array_filter_recursive($array, $callback = null, $flag = 0) {
 
         foreach ($array as &$item) {
-            if  (is_array($item)) {
+            if (is_array($item)) {
                 $item = self::array_filter_recursive($item, $callback, $flag);
             }
         }
 
-        if(isset($callback)){
+        if (isset($callback)) {
             return array_filter($array, $callback, $flag);
         }
 
-        if(!isset($callback)){
+        if (!isset($callback)) {
             return array_filter($array);
         }
     }
@@ -172,6 +198,40 @@ class jPHP {
         }
 
         return true;
+    }
+
+// ------------------------- STRING FUNCTIONS ----------------------------------
+
+    /**
+     * Returns part of the string that matches in both strings.
+     *
+     * substr() will return a substring by offset number.
+     * substr_compare() will compare two strings and return the part that matches in both strings.
+     * E.g. substr_compare('Australia', 'Austria') will produce: 'Austr'
+     *
+     * @param string $strA
+     * @param string $strB
+     * @return string Returns the part that matches. On no match it will return an empty string.
+     */
+    public static function substr_compare($strA, $strB) {
+
+        $arrayStrA = str_split($strA);
+        $arrayStrB = str_split($strB);
+
+        foreach ($arrayStrA as $offset => $value) {
+
+            if ($arrayStrB[$offset] === $value) {
+                continue;
+            }
+
+            if ($arrayStrB[$offset] !== $value) {
+                break;
+            }
+        }
+
+        $rest = substr($strA, 0, $offset);
+
+        return $rest;
     }
 
 }
