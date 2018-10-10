@@ -11,6 +11,17 @@
  * @author Julian Sawicki
  *
  */
+/**
+ * jPHP
+ *
+ * PHP has many built-in functions. Unfortunately, those functions do not offer
+ * the necessary functionality in some situations. The library jPHP offers a
+ * collection of functions that are based on existing php functions but
+ * with extended functionality.
+ *
+ * @author Julian Sawicki
+ *
+ */
 class jPHP {
 
 // ------------------------- ARRAY FUNCTIONS -----------------------------------
@@ -135,6 +146,19 @@ class jPHP {
     }
 
     /**
+     * array_search() compares case-sensitive.
+     * array_search_case_insensitive() compares case-insentivie
+     *
+     * @param string $needle
+     * @param array $haystack
+     * @return boolean
+     */
+    public static function array_search_case_insensitive($needle, $haystack) {
+        $key = array_search(strtolower($needle), array_map('strtolower', $haystack));
+        return $key;
+    }
+
+    /**
      * Filter an Array recursively.
      *
      * @param array $array The array to be filtered.
@@ -238,3 +262,4 @@ class jPHP {
     }
 
 }
+
