@@ -11,25 +11,14 @@
  * @author Julian Sawicki
  *
  */
-/**
- * jPHP
- *
- * PHP has many built-in functions. Unfortunately, those functions do not offer
- * the necessary functionality in some situations. The library jPHP offers a
- * collection of functions that are based on existing php functions but
- * with extended functionality.
- *
- * @author Julian Sawicki
- *
- */
 class jPHP {
 
 // ------------------------- ARRAY FUNCTIONS -----------------------------------
     /**
-     * in_array() checks if value exists. It checks by string comparison.
-     * in_array_substring() checks if substring exists. It checks by stripos().
+     * in_array() checks if value exists. It checks by string comparison (case sensitive).
+     * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive.
      *
-     * @param string|array $needle  The searched value. If needle is a string, the comparison is done by stripos().
+     * @param string|array $needle  The searched value.
      * @param array $haystack The array.
      * @param boolean $strict
      * @return boolean
@@ -94,7 +83,7 @@ class jPHP {
     }
 
     /**
-     * array_search() searches a value in the the array, and gives the key. It checks by string comparison.
+     * array_search() searches a value in the the array, and gives the key. It checks by string comparison (case sensitive).
      * array_search_glob_pattern() does the same, but it checks by globbing patterns/standard wildcards.
      *
      * @param string $pattern
@@ -188,7 +177,7 @@ class jPHP {
      * PHP 7 has a built-in is_iterable() function. But PHP 5 doens't have that
      * by default. So, this is the is_iterable() function for PHP 5.
      * Besides that the is_iterable() of PHP 7 says that stdClass is not
-     * iterable, but in fact an stdClass is iterable.
+     * iterable, but in fact an stdClass is iterable in foreach().
      *
      * @param mixed $iterateable
      *
@@ -233,14 +222,16 @@ class jPHP {
      * Returns part of the string that matches in both strings.
      *
      * substr() will return a substring by offset number.
+     * E.g. substr('Australia', 0, 5) will produce: 'Austr'
+     *
      * substr_compare() will compare two strings and return the part that matches in both strings.
-     * E.g. substr_compare('Australia', 'Austria') will produce: 'Austr'
+     * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'
      *
      * @param string $strA
      * @param string $strB
      * @return string Returns the part that matches. On no match it will return an empty string.
      */
-    public static function substr_compare($strA, $strB) {
+    public static function substrstr($strA, $strB) {
 
         $arrayStrA = str_split($strA);
         $arrayStrB = str_split($strB);
@@ -260,6 +251,5 @@ class jPHP {
 
         return $rest;
     }
-
+    
 }
-
