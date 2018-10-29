@@ -216,6 +216,30 @@ class jPHP {
         return true;
     }
 
+    /**
+     * Get the highest tree depth from array.
+     *
+     * @link URL https://stackoverflow.com/questions/262891/is-there-a-way-to-find-out-how-deep-a-php-array-is
+     * @param array $array
+     * @return int
+     */
+    public static function array_depth(array $array) {
+        $max_depth = 1;
+
+        foreach ($array as $value) {
+
+            if (is_array($value)) {
+                $depth = self::array_depth($value) + 1;
+
+                if ($depth > $max_depth) {
+                    $max_depth = $depth;
+                }
+            }
+        }
+
+        return $max_depth;
+    }
+
 // ------------------------- STRING FUNCTIONS ----------------------------------
 
     /**
@@ -251,5 +275,6 @@ class jPHP {
 
         return $rest;
     }
-    
+
 }
+
