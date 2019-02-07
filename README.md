@@ -66,5 +66,28 @@ Function list:
 ### array_depth
      * array_depth() gets the highest tree depth from array. It checks recursively.
 ### smartPush
+     * Adding new elements to an array can be done through the string access operator.
+     * For example like this:
+     * $arr['x'] = 42;
+     *
+     * Note that the string access operator can overwrite elements if the key is used twice or more.
+     * For example key 'x' will be overwritten in this scenario:
+     * $arr['x'] = 50;
+     * $arr['x'] = 60;
+     *
+     * smartPush() doesn't overwrite.
+     * smartPush() will keep the old value.
+     * jPHP::smartPush($arr, 'x', 70); // $arr['x'] = [0 => 60, 1 => 70];
+     * jPHP::smartPush($arr, 'x', 80); // $arr['x'] = [0 => 60, 1 => 70, 2 => 80];
 
+## String functions
+
+### substrstr     
+     * Returns part of the string that matches in both strings.
+     *
+     * substr() will return a substring by offset number.
+     * E.g. substr('Australia', 0, 5) will produce: 'Austr'.
+     *
+     * substrstr() will compare two strings and return the part that matches in both strings.
+     * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'.
 
