@@ -15,36 +15,38 @@ class jPHP {
 
 // ------------------------- ARRAY FUNCTIONS -----------------------------------
     /**
-     * in_array() checks if value exists. It checks by string comparison (case sensitive).
-     * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive.
+     * in_array() checks if value exists. It checks by string comparison (case sensitive), thus 'A' not equal to 'a'.
+     * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
+     * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
      *
-     * @param string|array $needle  The searched value.
-     * @param array $haystack The array.
+     *
+     * @param string|array $inArrayNeedle  The searched value.
+     * @param array $inArrayHaystack The array.
      * @param boolean $strict
      * @return boolean
      */
-    public static function in_array_substring($needle, $haystack, $strict = false) {
+    public static function in_array_substring($inArrayNeedle, $inArrayHaystack, $strict = false) {
         $return = false;
 
         $isString = false;
-        if(is_string($needle)){
+        if (is_string($inArrayNeedle)) {
             $isString = true;
         }
         $isArray = false;
-        if(is_array($needle)){
+        if (is_array($inArrayNeedle)) {
             $isArray = true;
         }
 
-        if (empty($needle) || ( !$isString && !$isArray ) || !is_array($haystack)) {
+        if (empty($inArrayNeedle) || (!$isString && !$isArray ) || !is_array($inArrayHaystack)) {
             return $return;
         }
 
-        foreach ($haystack as $key => $value) {
+        foreach ($inArrayHaystack as $key => $findme) {
 
-            if($isArray) {
-                foreach($needle as $needleItem){
+            if ($isArray) {
+                foreach ($inArrayNeedle as $inArrayNeedleItem) {
 
-                    $occurrenceInt = stripos($value, $needleItem);
+                    $occurrenceInt = stripos($inArrayNeedleItem, $findme);
                     if ($occurrenceInt !== false && !$strict) {
                         $return = true;
                         continue 2;
@@ -53,8 +55,8 @@ class jPHP {
                         $return = true;
                     }
                     if ($strict && $return) {
-                        $needleType = gettype($needleItem);
-                        $valueType = gettype($value);
+                        $needleType = gettype($inArrayNeedleItem);
+                        $valueType = gettype($findme);
                         $return = ($needleType === $valueType ? true : false);
                         continue 2;
                     }
@@ -62,14 +64,14 @@ class jPHP {
             }
 
             if ($isString) {
-                $occurrenceInt = stripos($value, $needle);
+                $occurrenceInt = stripos($inArrayNeedle, $findme);
                 if ($occurrenceInt !== false) {
                     $return = true;
                 }
 
                 if ($strict) {
-                    $needleType = gettype($needle);
-                    $valueType = gettype($value);
+                    $needleType = gettype($inArrayNeedle);
+                    $valueType = gettype($findme);
                     $return = ($needleType === $valueType ? true : false);
                 }
             }
@@ -80,6 +82,45 @@ class jPHP {
         }
 
         return $return;
+    }
+
+    /**
+     * in_array() checks if value exists. It checks only one value.
+     * in_array_any() checks if any of the given needle exists.
+     *
+     * @link https://stackoverflow.com/questions/7542694/in-array-multiple-values
+     *
+     * @param array $needle
+     * @param array $haystack
+     * @return boolean
+     */
+    public static function in_array_any(array $needle, array $haystack) {
+        return (boolean)array_intersect($needle, $haystack);
+    }
+
+    /**
+     * in_array() checks if value exists. It checks only one value.
+     * in_array_any() checks if all of the given needle exists.
+     *
+     * @param array $needle
+     * @param array $haystack
+     * @return boolean
+     */
+    public static function in_array_all(array $needle, array $haystack) {
+        $intersect = array_intersect($needle, $haystack);
+
+        if(!$intersect){
+            return false;
+        }
+
+        $needleCount = count($needle);
+        $intersectCount = count($intersect);
+
+        if($needleCount === $intersectCount){
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -240,6 +281,29 @@ class jPHP {
         return $max_depth;
     }
 
+    /**
+     *
+     *
+     *
+     *
+     * @param mixed $array
+     * @param mixed $newElement
+     */
+    public static function smartPush(&$array, $key, $value) {
+
+        if(!isset($array[$key])){
+            $array[$key] = $value;
+        } else if (is_scalar($array[$key])) {
+            $buff = $array[$key];
+            unset($array[$key]);
+
+            $array[$key][] = $buff;
+            $array[$key][] = $value;
+        } else if (is_array($array[$key])) {
+            $array[$key][] = $value;
+        }
+    }
+
 // ------------------------- STRING FUNCTIONS ----------------------------------
 
     /**
@@ -277,4 +341,3 @@ class jPHP {
     }
 
 }
-
