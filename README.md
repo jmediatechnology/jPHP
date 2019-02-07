@@ -19,8 +19,8 @@ Function list:
 * is_iterable
 * is_multidimensional
 * array_depth
-* smartPush
 * smart_push
+* substr
 
 ## Array functions
 
