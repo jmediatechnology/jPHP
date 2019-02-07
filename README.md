@@ -22,9 +22,9 @@ Function list:
 * smartPush
 * substrstr
 
-in_array_substring
+## in_array_substring
      * in_array() checks if value exists. It checks by string comparison (case sensitive), thus 'A' not equal to 'a'.
      * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
      * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
      
-    
+
