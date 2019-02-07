@@ -20,7 +20,7 @@ Function list:
 * is_multidimensional
 * array_depth
 * smartPush
-* substrstr
+* smart_push
 
 ## Array functions
 
@@ -65,7 +65,7 @@ Function list:
      
 ### array_depth
      * array_depth() gets the highest tree depth from array. It checks recursively.
-### smartPush
+### smart_push
      * Adding new elements to an array can be done through the string access operator.
      * For example like this:
      * $arr['x'] = 42;
@@ -75,10 +75,10 @@ Function list:
      * $arr['x'] = 50;
      * $arr['x'] = 60;
      *
-     * smartPush() doesn't overwrite.
-     * smartPush() will keep the old value.
-     * jPHP::smartPush($arr, 'x', 70); // $arr['x'] = [0 => 60, 1 => 70];
-     * jPHP::smartPush($arr, 'x', 80); // $arr['x'] = [0 => 60, 1 => 70, 2 => 80];
+     * smart_push() doesn't overwrite.
+     * smart_push() will keep the old value.
+     * jPHP::smart_push($arr, 'x', 70); // $arr['x'] = [0 => 60, 1 => 70];
+     * jPHP::smart_push($arr, 'x', 80); // $arr['x'] = [0 => 60, 1 => 70, 2 => 80];
 
 ## String functions
 
