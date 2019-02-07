@@ -88,6 +88,10 @@ Function list:
      * substr() will return a substring by offset number.
      * E.g. substr('Australia', 0, 5) will produce: 'Austr'.
      *
+     * strstr() will return a portion of the haystack by needle
+     * E.g. strstr('Australia', 'alia', true) will produce: 'Austr'
+     *
+     * substrstr() is like a combination of substr() and strstr().
      * substrstr() will compare two strings and return the part that matches in both strings.
      * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'.
 
