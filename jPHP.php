@@ -297,7 +297,7 @@ class jPHP {
      * jPHP::smart_push($arr, 'x', 80); // $arr['x'] = [0 => 60, 1 => 70, 2 => 80];
      *
      *
-     * @param mixed $array by reference
+     * @param mixed $array By reference
      * @param string|int $key The array key
      * @param mixed $value The new value that will be added
      */
