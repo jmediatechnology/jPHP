@@ -282,12 +282,24 @@ class jPHP {
     }
 
     /**
+     * Adding new elements to an array can be done through the string access operator.
+     * For example like this:
+     * $arr['x'] = 42;
+     *
+     * Note that the string access operator can overwrite elements if the key is used twice or more.
+     * For example key 'x' will be overwritten in this scenario:
+     * $arr['x'] = 50;
+     * $arr['x'] = 60;
+     *
+     * smart_push() doesn't overwrite.
+     * smart_push() will keep the old value.
+     * jPHP::smart_push($arr, 'x', 70); // $arr['x'] = [0 => 60, 1 => 70];
+     * jPHP::smart_push($arr, 'x', 80); // $arr['x'] = [0 => 60, 1 => 70, 2 => 80];
      *
      *
-     *
-     *
-     * @param mixed $array
-     * @param mixed $newElement
+     * @param mixed $array by reference
+     * @param string|int $key
+     * @param mixed $value 
      */
     public static function smartPush(&$array, $key, $value) {
 
