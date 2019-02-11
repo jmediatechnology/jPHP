@@ -298,8 +298,8 @@ class jPHP {
      *
      *
      * @param mixed $array by reference
-     * @param string|int $key
-     * @param mixed $value 
+     * @param string|int $key The array key
+     * @param mixed $value The new value that will be added
      */
     public static function smartPush(&$array, $key, $value) {
 
