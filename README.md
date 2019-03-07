@@ -11,6 +11,7 @@ Function list:
 * in_array_substring
 * in_array_any
 * in_array_all
+* in_array_recursive
 * array_search_glob_pattern
 * array_search_regex_pattern
 * array_search_case_insensitive
@@ -36,6 +37,10 @@ Function list:
 ### in_array_all
      * in_array() checks if value exists. It checks only one value.
      * in_array_any() checks if all of the given needle exists.
+     
+### in_array_recursive
+     * in_array() checks if a value exists in an array. It checks only one level deep. 
+     * in_array_recursive() checks recursively.    
      
 ### array_search_glob_pattern
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison (case sensitive).
