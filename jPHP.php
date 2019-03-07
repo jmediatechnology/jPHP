@@ -122,6 +122,33 @@ class jPHP {
 
         return false;
     }
+    
+    /**
+     * in_array() checks if a value exists in an array. It checks only one level deep. 
+     * in_array_recursive() checks recursively.
+     *
+     * @link http://php.net/manual/en/function.in-array.php#58560 Similar solution
+     *
+     * @param string|int $needle
+     * @param array $haystack
+     * @return boolean
+     */
+    public static function in_array_recursive($needle, array $haystack) {
+
+        if(in_array($needle, $haystack)){
+            return true;
+        }
+
+        $found = false;
+        foreach($haystack as $k => $v) {
+
+            if(is_array($v)){
+                $found = self::in_array_recursive($needle, $v);
+            }
+        }
+
+        return $found;
+    }
 
     /**
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison (case sensitive).
