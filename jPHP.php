@@ -240,6 +240,67 @@ class jPHP {
             return array_filter($array);
         }
     }
+    
+   /**
+     * array_filter() received optional flag parameters in PHP 5.6: ARRAY_FILTER_USE_KEY and ARRAY_FILTER_USE_BOTH.
+     * So these flags won't work in versions below php 5.6.
+     * array_filter_php53_shim() is a shim which allows the usage of flags in php 5.3.
+     *
+     * Note: it does not work for php 5.2 because of Callbacks. 
+     * More info: https://www.php.net/manual/en/language.types.callable.php#117260
+     *
+     * Note for usage: call this method with error-surprssion operator or
+     * supply the flags as strings instead of constant name.
+     *
+     * Examples:
+     *  @jPHP::array_filter_php53_shim($arr, $callback, ARRAY_FILTER_USE_KEY);
+     *  jPHP::array_filter_php53_shim($arr, $callback, 'ARRAY_FILTER_USE_KEY');
+     *
+     *
+     * @param array $array
+     * @param callable $callback
+     * @param mixed $flag
+     * @return type
+     */
+    public static function array_filter_php53_shim($array, $callback, $flag = 0){
+
+        $newArray = array();
+
+        end($array);
+        $lastKey = key($array);
+        $lastValue = current($array);
+        reset($array);
+        while (!empty($array)) {
+            $key = key($array);
+            $val = current($array);
+
+            if($flag === 0){
+                // pass value only
+                $filter = $callback($val);
+            }
+
+            if($flag === 'ARRAY_FILTER_USE_KEY' || $flag === 2 ){
+                // pass key only
+                $filter = $callback($key);
+            }
+
+            if($flag === 'ARRAY_FILTER_USE_BOTH' || $flag === 1 ){
+                // pass value and key
+                $filter = $callback($val, $key);
+            }
+
+            if($filter){
+                $newArray[$key] = $val;
+            }
+
+            if ($key === $lastKey && $val === $lastValue) {
+                break;
+            }
+            next($array);
+        }
+
+        return $newArray;
+    }
 
     /**
      * PHP 7 has a built-in is_iterable() function. But PHP 5 doens't have that
