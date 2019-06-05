@@ -33,7 +33,7 @@ Function list:
 
 ### in_array_any
      * in_array() checks if value exists. It checks only one value.
-     * in_array_any() checks if any of the given needle exists.
+     * in_array_any() checks if any of the given needles exists.
 
 ### in_array_all
      * in_array() checks if value exists. It checks only one value.
