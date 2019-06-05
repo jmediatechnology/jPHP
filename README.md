@@ -16,6 +16,7 @@ Function list:
 * array_search_regex_pattern
 * array_search_case_insensitive
 * array_filter_recursive
+* array_filter_php53_shim
 * is_iterable
 * is_multidimensional
 * array_depth
@@ -57,6 +58,12 @@ Function list:
 ### array_filter_recursive
      * array_filter() filters an array. But not recursively.
      * array_filter_recursive() filters an array recursively.
+     
+### array_filter_php53_shim
+     * array_filter() received optional flag parameters in PHP 5.6: ARRAY_FILTER_USE_KEY and ARRAY_FILTER_USE_BOTH.
+     * So these flags won't work in versions below php 5.6.
+     * array_filter_php53_shim() is a shim which allows the usage of flags in php 5.3. 
+     * Note: it does not work for php 5.2 because of Callbacks.
      
 ### is_iterable
      * PHP 7 has a built-in is_iterable() function. But PHP 5 doens't have that
