@@ -19,32 +19,48 @@ class jPHP {
      * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
      * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
      *
+     * E.g.
+     * $mainNeedle = 'Australia';
+     * $substringList = array('ab','au');
+     * $found = in_array_substring($needle, $substringList); // TRUE
      *
-     * @param string|array $inArrayNeedle  The searched value.
-     * @param array $inArrayHaystack The array.
+     * Explanation:
+     * jPHP::in_array_substring traverses the $substringList.
+     * In this case ['ab', 'au'].
+     *
+     * Each iteration will search in string 'Australia' one substringList element.
+     * Thus, the first iteration does this:
+     *     stripos('Australia', 'ab'); // false
+     * It doesn't find it, so it goes to the next iteration.
+     * The second iteration does tis:
+     *      stripos('Australia', 'au'); // integer 0
+     * After finding the substring 'au' in 'Australia' boolean true gets returned.
+     *
+     * @param string|array $mainNeedle  The searched value.
+     * @param array $substringList The array containing the substrings.
      * @param boolean $strict
      * @return boolean
      */
-    public static function in_array_substring($inArrayNeedle, $inArrayHaystack, $strict = false) {
+    public static function in_array_substring($mainNeedle, $substringList, $strict = false) {
         $return = false;
 
         $isString = false;
-        if (is_string($inArrayNeedle)) {
+        if (is_string($mainNeedle)) {
             $isString = true;
         }
         $isArray = false;
-        if (is_array($inArrayNeedle)) {
+        if (is_array($mainNeedle)) {
             $isArray = true;
         }
 
-        if (empty($inArrayNeedle) || (!$isString && !$isArray ) || !is_array($inArrayHaystack)) {
+        if (empty($mainNeedle) || (!$isString && !$isArray ) || !is_array($substringList)) {
             return $return;
         }
 
-        foreach ($inArrayHaystack as $key => $findme) {
+        foreach ($substringList as $key => $findme) {
 
             if ($isArray) {
-                foreach ($inArrayNeedle as $inArrayNeedleItem) {
+                foreach ($mainNeedle as $inArrayNeedleItem) {
 
                     $occurrenceInt = stripos($inArrayNeedleItem, $findme);
                     if ($occurrenceInt !== false && !$strict) {
@@ -64,13 +80,13 @@ class jPHP {
             }
 
             if ($isString) {
-                $occurrenceInt = stripos($inArrayNeedle, $findme);
+                $occurrenceInt = stripos($mainNeedle, $findme);
                 if ($occurrenceInt !== false) {
                     $return = true;
                 }
 
                 if ($strict) {
-                    $needleType = gettype($inArrayNeedle);
+                    $needleType = gettype($mainNeedle);
                     $valueType = gettype($findme);
                     $return = ($needleType === $valueType ? true : false);
                 }
@@ -122,9 +138,9 @@ class jPHP {
 
         return false;
     }
-    
+
     /**
-     * in_array() checks if a value exists in an array. It checks only one level deep. 
+     * in_array() checks if a value exists in an array. It checks only one level deep.
      * in_array_recursive() checks recursively.
      *
      * @link http://php.net/manual/en/function.in-array.php#58560 Similar solution
@@ -216,7 +232,8 @@ class jPHP {
     }
 
     /**
-     * Filter an Array recursively.
+     * array_filter() filters an array. But not recursively.
+     * array_filter_recursive() filters an array recursively.
      *
      * @param array $array The array to be filtered.
      * @param callable|null $callback The function that defines the filter rules. Return false means filter it.
@@ -240,13 +257,13 @@ class jPHP {
             return array_filter($array);
         }
     }
-    
-   /**
+
+    /**
      * array_filter() received optional flag parameters in PHP 5.6: ARRAY_FILTER_USE_KEY and ARRAY_FILTER_USE_BOTH.
      * So these flags won't work in versions below php 5.6.
      * array_filter_php53_shim() is a shim which allows the usage of flags in php 5.3.
      *
-     * Note: it does not work for php 5.2 because of Callbacks. 
+     * Note: it does not work for php 5.2 because of Callbacks.
      * More info: https://www.php.net/manual/en/language.types.callable.php#117260
      *
      * Note for usage: call this method with error-surprssion operator or
@@ -317,7 +334,7 @@ class jPHP {
     }
 
     /**
-     * Check if array is multidimensional
+     * is_multidimensional() checks if array is multidimensional.
      *
      * @param array $multidimensional
      * @return boolean
@@ -346,7 +363,7 @@ class jPHP {
     }
 
     /**
-     * Get the highest tree depth from array.
+     * array_depth() gets the highest tree depth from array. It checks recursively.
      *
      * @link URL https://stackoverflow.com/questions/262891/is-there-a-way-to-find-out-how-deep-a-php-array-is
      * @param array $array
@@ -389,7 +406,7 @@ class jPHP {
      * @param string|int $key The array key
      * @param mixed $value The new value that will be added
      */
-    public static function smartPush(&$array, $key, $value) {
+    public static function smart_push(&$array, $key, $value) {
 
         if(!isset($array[$key])){
             $array[$key] = $value;
@@ -410,10 +427,14 @@ class jPHP {
      * Returns part of the string that matches in both strings.
      *
      * substr() will return a substring by offset number.
-     * E.g. substr('Australia', 0, 5) will produce: 'Austr'
+     * E.g. substr('Australia', 0, 5) will produce: 'Austr'.
      *
-     * substr_compare() will compare two strings and return the part that matches in both strings.
-     * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'
+     * strstr() will return a portion of the haystack by needle
+     * E.g. strstr('Australia', 'alia', true) will produce: 'Austr'
+     *
+     * substrstr() is like a combination of substr() and strstr().
+     * substrstr() will compare two strings and return the part that matches in both strings.
+     * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'.
      *
      * @param string $strA
      * @param string $strB
@@ -425,6 +446,10 @@ class jPHP {
         $arrayStrB = str_split($strB);
 
         foreach ($arrayStrA as $offset => $value) {
+
+            if(!array_key_exists($offset, $arrayStrB)){
+                break;
+            }
 
             if ($arrayStrB[$offset] === $value) {
                 continue;
