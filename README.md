@@ -1,7 +1,7 @@
 PHP has many built-in functions. Unfortunately, those functions do not offer the necessary functionality in some situations. See the examples below. 
 
 It's not possible for in_array() to check if a **substring** exists in the given array. Fortunately it's possible with jPHP. 
-With jPHP you can use `jPHP::in_array_substring($mainNeedle, $substringList)`. 
+With jPHP you can use `jPHP::in_array_substring($mainNeedle, $mainHaystack)`. 
  
 The function array_search() searches by string comparison, it doesn't search by **pattern matching**. Fortunately it's possible with jPHP, jPHP offers `jPHP::array_search_glob_pattern($pattern, $haystack)` or `jPHP::array_search_regex_pattern($pattern, $haystack)` for this situation.
  
@@ -9,6 +9,7 @@ The library jPHP offers a collection of functions (static methods) that are base
 
 Function list: 
 * in_array_substring
+* in_array_substringArray
 * in_array_any
 * in_array_all
 * in_array_recursive
@@ -27,25 +28,46 @@ Function list:
 
 ### in_array_substring
      * in_array() checks if value exists. It checks by string comparison (case sensitive), thus 'A' not equal to 'a'.
-     * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
-     * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
-     * Example: 
-     * 
-     * $mainNeedle = 'Australia';
+     * in_array_substring() just check if substring exists in haystack.
+     *
+     * How it works:
+     * in_array_substring() loops over the mainHaystack and,
+     * checks if the mainNeedle exists in the mainHaystack as a substring.
+     *
+     * The string comparison function used here is stripos(),
+     * thus case insensitive, thus 'A' equal to 'a'.
+     *
+     * Example with in_array():
+     *     $os = array("Mac", "NT", "Irix", "Linux");
+     *     if (in_array("Irix", $os)) {
+     *         echo "Got Irix";
+     *     }
+     *
+     * Example with in_array_substring():
+     *     if (in_array_substring("ir", $os)) {
+     *         echo "Got Irix";
+     *     }
+     
+
+### in_array_substringArray
+     * in_array_substringArray() is a syntactic sugar for multiple stripos().
+     *
+     * Example:
+     * $mainHaystack = 'Australia';
      * $substringList = array('ab','au');
-     * jPHP::in_array_substring($mainNeedle, $substringList); // boolean true
+     * jPHP::in_array_substringArray($mainHaystack, $substringList); // boolean true
      *
-     * Explanation:
-     * jPHP::in_array_substring traverses the $substringList.
-     * In this case ['ab', 'au'].
-     *
-     * Each iteration will search in string 'Australia' one substringList element.
+     * How it works:
+     * The $substringList will be traversed. In this case ['ab', 'au'].
+     * Each iteration will search try to match a substring in the mainHaystack.
      * Thus, the first iteration does this:
      *     stripos('Australia', 'ab'); // false
-     * It doesn't find it, so it goes to the next iteration.
+     * Substring 'ab' doesn't exists in mainHaystack string 'Australia'.
+     * So it goes to the next iteration.
      * The second iteration does tis:
      *      stripos('Australia', 'au'); // integer 0
-     * After finding the substring 'au' in 'Australia' boolean true gets returned.
+     * Substring 'au' exists in mainHaystack string 'Australia',
+     * so a boolean true gets returned.
      *
      * Instead of doing something like this:
      *     foreach ($array as $key => $value) {
@@ -55,11 +77,10 @@ Function list:
      *     }
      * You can do this:
      *     foreach ($array as $key => $value) {
-     *         if (jPHP::in_array_substring($value, $substringList) !== false) {
+     *         if (jPHP::in_array_substringArray($value, array('ab','au')) !== false) {
      *             // something
      *         }
      *     }
-     
 
 ### in_array_any
      * in_array() checks if value exists. It checks only one value.
