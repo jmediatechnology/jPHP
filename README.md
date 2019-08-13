@@ -28,7 +28,7 @@ Function list:
 
 ### in_array_substring
      * in_array() checks if value exists. It checks by string comparison (case sensitive), thus 'A' not equal to 'a'.
-     * in_array_substring() just check if substring exists in haystack.
+     * in_array_substring() just checks if the given substring exists in the haystack.
      *
      * How it works:
      * in_array_substring() loops over the mainHaystack and,
