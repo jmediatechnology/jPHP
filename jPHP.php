@@ -16,25 +16,109 @@ class jPHP {
 // ------------------------- ARRAY FUNCTIONS -----------------------------------
     /**
      * in_array() checks if value exists. It checks by string comparison (case sensitive), thus 'A' not equal to 'a'.
-     * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
-     * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
+     * in_array_substring() just check if substring exists in haystack.
      *
-     * E.g.
+     * How it works:
+     * in_array_substring() loops over the mainHaystack and,
+     * checks if the mainNeedle exists in the mainHaystack as a substring.
+     *
+     * The string comparison function used here is stripos(),
+     * thus case insensitive, thus 'A' equal to 'a'.
+     *
+     * Example with in_array():
+     *     $os = array("Mac", "NT", "Irix", "Linux");
+     *     if (in_array("Irix", $os)) {
+     *         echo "Got Irix";
+     *     }
+     *
+     * Example with in_array_substring():
+     *     if (in_array_substring("ir", $os)) {
+     *         echo "Got Irix";
+     *     }
+     *
+     * @param string|array $mainNeedle  The substring that will be searched.
+     * @param array $mainHaystack The array.
+     * @param boolean $strict
+     * @return boolean
+     */
+    public static function in_array_substring($mainNeedle, $mainHaystack, $strict = false) {
+        $return = false;
+
+        $mainNeedleIsString = false;
+        if (is_string($mainNeedle)) {
+            $mainNeedleIsString = true;
+        }
+        $mainNeedleIsArray = false;
+        if (is_array($mainNeedle)) {
+            $mainNeedleIsArray = true;
+        }
+
+        if (empty($mainHaystack) || (!$mainNeedleIsString && !$mainNeedleIsArray ) || !is_array($mainHaystack)) {
+            return $return;
+        }
+
+        foreach ($mainHaystack as $key => $findme) {
+
+            if ($mainNeedleIsArray) {
+                foreach ($mainNeedle as $mainNeedleItem) {
+
+                    $occurrenceInt = stripos($findme, $mainNeedle);
+                    if ($occurrenceInt !== false && !$strict) {
+                        $return = true;
+                        continue 2;
+                    }
+                    if ($occurrenceInt !== false && $strict) {
+                        $return = true;
+                    }
+                    if ($strict && $return) {
+                        $needleType = gettype($mainNeedleItem);
+                        $valueType = gettype($findme);
+                        $return = ($needleType === $valueType ? true : false);
+                        continue 2;
+                    }
+                }
+            }
+
+            if ($mainNeedleIsString) {
+                $occurrenceInt = stripos($findme, $mainNeedle);
+                if ($occurrenceInt !== false) {
+                    $return = true;
+                }
+
+                if ($strict) {
+                    $needleType = gettype($mainHaystack);
+                    $valueType = gettype($findme);
+                    $return = ($needleType === $valueType ? true : false);
+                }
+            }
+
+            if ($return) {
+                return $return;
+            }
+        }
+
+        return $return;
+    }
+
+    /**
+     * in_array_substringArray() is a syntactic sugar for multiple stripos().
+     *
+     * Example:
      * $mainNeedle = 'Australia';
      * $substringList = array('ab','au');
      * jPHP::in_array_substring($mainNeedle, $substringList); // boolean true
      *
-     * Explanation:
-     * jPHP::in_array_substring traverses the $substringList.
-     * In this case ['ab', 'au'].
-     *
-     * Each iteration will search in string 'Australia' one substringList element.
+     * How it works:
+     * The $substringList will be traversed. In this case ['ab', 'au'].
+     * Each iteration will search try to match a substring in the mainHaystack.
      * Thus, the first iteration does this:
      *     stripos('Australia', 'ab'); // false
-     * It doesn't find it, so it goes to the next iteration.
+     * Substring 'ab' doesn't exists in mainHaystack string 'Australia'.
+     * So it goes to the next iteration.
      * The second iteration does tis:
      *      stripos('Australia', 'au'); // integer 0
-     * After finding the substring 'au' in 'Australia' boolean true gets returned.
+     * Substring 'au' exists in mainHaystack string 'Australia',
+     * so a boolean true gets returned.
      *
      * Instead of doing something like this:
      *     foreach ($array as $key => $value) {
@@ -44,38 +128,38 @@ class jPHP {
      *     }
      * You can do this:
      *     foreach ($array as $key => $value) {
-     *         if (jPHP::in_array_substring($value, $substringList) !== false) {
+     *         if (jPHP::in_array_substringArray($value, $substringList) !== false) {
      *             // something
      *         }
      *     }
      *
-     * @param string|array $mainNeedle  The searched value.
+     * @param string|array $mainHaystack  The searched value.
      * @param array $substringList The array containing the substrings.
      * @param boolean $strict
      * @return boolean
      */
-    public static function in_array_substring($mainNeedle, $substringList, $strict = false) {
+    public static function in_array_substringArray($mainHaystack, $substringList, $strict = false) {
         $return = false;
 
-        $isString = false;
-        if (is_string($mainNeedle)) {
-            $isString = true;
+        $mainHaystackIsString = false;
+        if (is_string($mainHaystack)) {
+            $mainHaystackIsString = true;
         }
-        $isArray = false;
-        if (is_array($mainNeedle)) {
-            $isArray = true;
+        $mainHaystackIsArray = false;
+        if (is_array($mainHaystack)) {
+            $mainHaystackIsArray = true;
         }
 
-        if (empty($mainNeedle) || (!$isString && !$isArray ) || !is_array($substringList)) {
+        if (empty($mainHaystack) || (!$mainHaystackIsString && !$mainHaystackIsArray ) || !is_array($substringList)) {
             return $return;
         }
 
         foreach ($substringList as $key => $findme) {
 
-            if ($isArray) {
-                foreach ($mainNeedle as $inArrayNeedleItem) {
+            if ($mainHaystackIsArray) {
+                foreach ($mainHaystack as $mainHaystackItem) {
 
-                    $occurrenceInt = stripos($inArrayNeedleItem, $findme);
+                    $occurrenceInt = stripos($mainHaystackItem, $findme);
                     if ($occurrenceInt !== false && !$strict) {
                         $return = true;
                         continue 2;
@@ -84,7 +168,7 @@ class jPHP {
                         $return = true;
                     }
                     if ($strict && $return) {
-                        $needleType = gettype($inArrayNeedleItem);
+                        $needleType = gettype($mainHaystackItem);
                         $valueType = gettype($findme);
                         $return = ($needleType === $valueType ? true : false);
                         continue 2;
@@ -92,14 +176,14 @@ class jPHP {
                 }
             }
 
-            if ($isString) {
-                $occurrenceInt = stripos($mainNeedle, $findme);
+            if ($mainHaystackIsString) {
+                $occurrenceInt = stripos($mainHaystack, $findme);
                 if ($occurrenceInt !== false) {
                     $return = true;
                 }
 
                 if ($strict) {
-                    $needleType = gettype($mainNeedle);
+                    $needleType = gettype($mainHaystack);
                     $valueType = gettype($findme);
                     $return = ($needleType === $valueType ? true : false);
                 }
