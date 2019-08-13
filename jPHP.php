@@ -22,7 +22,7 @@ class jPHP {
      * E.g.
      * $mainNeedle = 'Australia';
      * $substringList = array('ab','au');
-     * $found = in_array_substring($mainNeedle, $substringList); // TRUE
+     * jPHP::in_array_substring($mainNeedle, $substringList); // boolean true
      *
      * Explanation:
      * jPHP::in_array_substring traverses the $substringList.
