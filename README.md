@@ -77,7 +77,7 @@ Function list:
      *     }
      * You can do this:
      *     foreach ($array as $key => $value) {
-     *         if (jPHP::in_array_substringArray($value, array('ab','au')) !== false) {
+     *         if (jPHP::in_array_substringArray($value, array('ab','au'))) {
      *             // something
      *         }
      *     }
