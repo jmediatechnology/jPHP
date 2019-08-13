@@ -30,9 +30,35 @@ Function list:
      * in_array_substring() checks if substring exists. It checks by stripos(), thus case insensitive, thus 'A' equal to 'a'.
      * in_array_substring() loops over the haystack and checks if at least 1 haystack-item exitst in any part of the needle.
      * Example: 
+     * 
      * $mainNeedle = 'Australia';
      * $substringList = array('ab','au');
-     * $found = in_array_substring($mainNeedle, $substringList); // TRUE
+     * jPHP::in_array_substring($mainNeedle, $substringList); // boolean true
+     *
+     * Explanation:
+     * jPHP::in_array_substring traverses the $substringList.
+     * In this case ['ab', 'au'].
+     *
+     * Each iteration will search in string 'Australia' one substringList element.
+     * Thus, the first iteration does this:
+     *     stripos('Australia', 'ab'); // false
+     * It doesn't find it, so it goes to the next iteration.
+     * The second iteration does tis:
+     *      stripos('Australia', 'au'); // integer 0
+     * After finding the substring 'au' in 'Australia' boolean true gets returned.
+     *
+     * Instead of doing something like this:
+     *     foreach ($array as $key => $value) {
+     *         if (stripos($value, 'ab') !== false || stripos($value, 'au') !== false) {
+     *             // something
+     *         }
+     *     }
+     * You can do this:
+     *     foreach ($array as $key => $value) {
+     *         if (jPHP::in_array_substring($value, $substringList) !== false) {
+     *             // something
+     *         }
+     *     }
      
 
 ### in_array_any
