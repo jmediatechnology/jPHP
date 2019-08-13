@@ -36,6 +36,19 @@ class jPHP {
      *      stripos('Australia', 'au'); // integer 0
      * After finding the substring 'au' in 'Australia' boolean true gets returned.
      *
+     * Instead of doing something like this:
+     *     foreach ($array as $key => $value) {
+     *         if (stripos($value, 'ab') !== false || stripos($value, 'au') !== false) {
+     *             // something
+     *         }
+     *     }
+     * You can do this:
+     *     foreach ($array as $key => $value) {
+     *         if (jPHP::in_array_substring($value, $substringList) !== false) {
+     *             // something
+     *         }
+     *     }
+     *
      * @param string|array $mainNeedle  The searched value.
      * @param array $substringList The array containing the substrings.
      * @param boolean $strict
