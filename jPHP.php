@@ -104,9 +104,9 @@ class jPHP {
      * in_array_substringArray() is a syntactic sugar for multiple stripos().
      *
      * Example:
-     * $mainNeedle = 'Australia';
+     * $mainHaystack = 'Australia';
      * $substringList = array('ab','au');
-     * jPHP::in_array_substring($mainNeedle, $substringList); // boolean true
+     * jPHP::in_array_substringArray($mainHaystack, $substringList); // boolean true
      *
      * How it works:
      * The $substringList will be traversed. In this case ['ab', 'au'].
@@ -128,7 +128,7 @@ class jPHP {
      *     }
      * You can do this:
      *     foreach ($array as $key => $value) {
-     *         if (jPHP::in_array_substringArray($value, $substringList) !== false) {
+     *         if (jPHP::in_array_substringArray($value, array('ab','au'))) {
      *             // something
      *         }
      *     }
