@@ -23,6 +23,7 @@ Function list:
 * array_depth
 * smart_push
 * substr
+* stripos_array
 
 ## Array functions
 
