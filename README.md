@@ -157,3 +157,21 @@ Function list:
      * substrstr() will compare two strings and return the part that matches in both strings.
      * E.g. substrstr('Australia', 'Austria') will produce: 'Austr'.
 
+
+### stripos_array   
+     * Alias of in_array_substringArray.
+     *
+     * stripos_array() is a syntactic sugar for multiple stripos().
+     *
+     * Instead of doing something like this:
+     *     foreach ($array as $key => $value) {
+     *         if (stripos($value, 'ab') !== false || stripos($value, 'au') !== false) {
+     *             // something
+     *         }
+     *     }
+     * You can do this:
+     *     foreach ($array as $key => $value) {
+     *         if (jPHP::stripos_array($value, array('ab','au'))) {
+     *             // something
+     *         }
+     *     }
