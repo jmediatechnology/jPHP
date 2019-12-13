@@ -277,10 +277,10 @@ class jPHP {
      * $arrayB = [[1,2,3],[5,6],[7,8,9]];
      * array_intersect_recursive($arrayA, $arrayB); // return: [[1,2,3],[],[]]
      * 
-     * @param type $arrayA
-     * @param type $arrayB
+     * @param array $arrayA
+     * @param array $arrayB
      * @param array $outputArray
-     * @return type
+     * @return array
      */
     public static function array_intersect_recursive($arrayA, $arrayB, $outputArray = array()) {
     
