@@ -1,5 +1,7 @@
 <?php
 
+namespace jPHP;
+
 /**
  * jPHP
  *
