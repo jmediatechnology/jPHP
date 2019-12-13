@@ -7,8 +7,10 @@ namespace jPHP;
  *
  * PHP has many built-in functions. 
  * However, my opinion is that PHP doesn't have some built-in functions 
- * that should be part of PHP. What's next is that some built-in 
- * functions don't offer the necessary functionality in some situations.
+ * that should be part of PHP. So I added them in jPHP. 
+ * What's next is that some built-in functions don't offer the necessary 
+ * functionality in some situations. So, I added the necessary functionality 
+ * in jPHP.
  * 
  * The library jPHP offers a collection of functions that are based on 
  * existing php functions but with extended functionality.
