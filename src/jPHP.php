@@ -270,6 +270,35 @@ class jPHP {
 
         return $found;
     }
+    
+    /**
+     * 
+     * $arrayA = [[1,2,3],[10,11],[12,13,14]];
+     * $arrayB = [[1,2,3],[5,6],[7,8,9]];
+     * array_intersect_recursive($arrayA, $arrayB); // return: [[1,2,3],[],[]]
+     * 
+     * @param type $arrayA
+     * @param type $arrayB
+     * @param array $outputArray
+     * @return type
+     */
+    public static function array_intersect_recursive($arrayA, $arrayB, $outputArray = array()) {
+    
+        $itemA = current($arrayA);
+        $itemB = current($arrayB);
+        $kA = key($arrayA);
+        $kB = key($arrayB);
+        unset($arrayA[$kA]);
+        unset($arrayB[$kB]);
+
+        if(!is_array($itemA) || !is_array($itemB)){
+            return $outputArray;
+        }
+
+        $outputArray[] = array_intersect($itemA, $itemB);
+
+        return array_intersect_recursive($arrayA, $arrayB, $outputArray);
+    }
 
     /**
      * array_search() searches a value in the the array, and gives the key. It checks by string comparison (case sensitive).
