@@ -1,4 +1,4 @@
-PHP has many built-in functions. However, my opinion is that PHP doesn't have some built-in functions that should be there. What's next is that some built-in functions don't offer the necessary functionality in some situations. See the examples below. 
+PHP has many built-in functions. However, my opinion is that PHP doesn't have some built-in functions that should be part of PHP. What's next is that some built-in functions don't offer the necessary functionality in some situations. See the examples below. 
 
 It's not possible for in_array() to check if a **substring** exists in the given array. Fortunately it's possible with jPHP. 
 With jPHP you can use `jPHP::in_array_substring($mainNeedle, $mainHaystack)`. 
