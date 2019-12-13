@@ -2,7 +2,7 @@
     "name": "jmediatechnology/jphp",
     "description": "PHP has many built-in functions. However, my opinion is that PHP doesn't have some built-in functions that may be needed.  What's next is that some built-in functions don't offer the necessary functionality in some situations.",
     "type": "library",
-    "license": "GNU GENERAL PUBLIC LICENSE",
+    "license": "BSD",
     "authors": [
         {
             "name": "Julian Sawicki",
