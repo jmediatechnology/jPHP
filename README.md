@@ -180,6 +180,7 @@ Function list:
 
 ## Date / Time functions
 
+### convertMinutesIntToDigitalClockFormat  
      * Convert the amount of minutes to a digital format, just like a digital clock. 
      *
      * You can supply int 90, this function gives you: "1:30".
