@@ -630,4 +630,23 @@ class jPHP {
         return self::in_array_substringArray($mainHaystack, $substringList, $strict);
     }
 
+// ------------------------- DATE / TIME FUNCTIONS ----------------------------------
+    
+   /**
+     * Convert the amount of minutes to a digital format, just like a digital clock. 
+     *
+     * You can supply int 90, this function gives you: "1:30".
+     * If you supply an integer greater than 1440, then "00:00" is returned.
+     * 
+     * @param int $amountOfMinutes  The searched value.
+     * @return string
+     */
+    public static function convertMinutesIntToDigitalClockFormat($amountOfMinutes){
+        if($amountOfMinutes > 1440){
+            return '00:00';
+        }
+        $hours = (int)($amountOfMinutes  / 60);
+        $minutes = $amountOfMinutes % 60;
+        return str_pad($hours, 2, '0') . ':' . str_pad($minutes, 2, '0');
+    }
 }
