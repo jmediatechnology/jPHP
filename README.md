@@ -8,7 +8,7 @@ The function array_search() searches by string comparison, it doesn't search by 
 The library jPHP offers a collection of functions (static methods) that are based on existing php functions but with extended functionality.
 
 Function list: 
-* in_array_substring()
+* `in_array_substring()`
 * in_array_substringArray()
 * in_array_any()
 * in_array_all()
