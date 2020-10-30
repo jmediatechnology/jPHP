@@ -8,22 +8,23 @@ The function array_search() searches by string comparison, it doesn't search by 
 The library jPHP offers a collection of functions (static methods) that are based on existing php functions but with extended functionality.
 
 Function list: 
-* in_array_substring
-* in_array_substringArray
-* in_array_any
-* in_array_all
-* in_array_recursive
-* array_search_glob_pattern
-* array_search_regex_pattern
-* array_search_case_insensitive
-* array_filter_recursive
-* array_filter_php53_shim
-* is_iterable
-* is_multidimensional
-* array_depth
-* smart_push
-* substr
-* stripos_array
+* in_array_substring()
+* in_array_substringArray()
+* in_array_any()
+* in_array_all()
+* in_array_recursive()
+* array_search_glob_pattern()
+* array_search_regex_pattern()
+* array_search_case_insensitive()
+* array_filter_recursive()
+* array_filter_php53_shim()
+* is_iterable()
+* is_multidimensional()
+* array_depth()
+* smart_push()
+* substr()
+* stripos_array()
+* convertMinutesIntToDigitalClockFormat()
 
 ## Array functions
 
