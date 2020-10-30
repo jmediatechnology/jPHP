@@ -176,3 +176,10 @@ Function list:
      *             // something
      *         }
      *     }
+
+## Date / Time functions
+
+     * Convert the amount of minutes to a digital format, just like a digital clock. 
+     *
+     * You can supply int 90, this function gives you: "1:30".
+     * If you supply an integer greater than 1440, then "00:00" is returned.
