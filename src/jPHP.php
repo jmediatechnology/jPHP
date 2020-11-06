@@ -638,7 +638,7 @@ class jPHP {
      * You can supply int 90, this function gives you: "1:30".
      * If you supply an integer greater than 1440, then "00:00" is returned.
      * 
-     * @param int $amountOfMinutes  The searched value.
+     * @param int $amountOfMinutes
      * @return string
      */
     public static function convertMinutesIntToDigitalClockFormat($amountOfMinutes){
@@ -648,5 +648,29 @@ class jPHP {
         $hours = (int)($amountOfMinutes  / 60);
         $minutes = $amountOfMinutes % 60;
         return str_pad($hours, 2, '0') . ':' . str_pad($minutes, 2, '0');
+    }
+    
+    /**
+     * Convert the amount of seconds to a human readable format
+     *
+     * You can supply int 129600, this function returns: "1 days 12:0:0".
+     * 
+     * @param int $amountOfSeconds 
+     * @return string
+     */
+    public static function convertSecondsToDaysHoursMinutesSeconds($amountOfSeconds) {
+	
+	    $amountOfDays = (int)($amountOfSeconds / 86400);
+	    $secondsRemaining = (int)($amountOfSeconds % 86400);
+
+	
+	    $amountOfHours = (int)($secondsRemaining / 3600);
+	    $secondsRemaining = (int)($secondsRemaining % 3600);
+
+	    $amountOfMinutes = (int)($secondsRemaining / 60);	
+	    $secondsRemaining = (int)($secondsRemaining % 60);	
+	
+	
+	    return $amountOfDays . ' days ' . $amountOfHours . ':' . $amountOfMinutes . ':' . $secondsRemaining;
     }
 }
