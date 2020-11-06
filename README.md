@@ -25,6 +25,7 @@ Function list:
 * `substr()`
 * `stripos_array()`
 * `convertMinutesIntToDigitalClockFormat()`
+* `convertSecondsToDaysHoursMinutesSeconds()`
 
 ## Array functions
 
@@ -185,3 +186,11 @@ Function list:
      *
      * You can supply int 90, this function gives you: "1:30".
      * If you supply an integer greater than 1440, then "00:00" is returned.
+     
+
+### convertSecondsToDaysHoursMinutesSeconds  
+     * Convert the amount of seconds to a human readable format
+     *
+     * You can supply int 129600, this function returns: "1 days 12:0:0".
+     
+     
