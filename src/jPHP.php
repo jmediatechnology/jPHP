@@ -651,7 +651,7 @@ class jPHP {
     }
     
     /**
-     * Convert the amount of seconds to a human readable format
+     * Convert the amount of seconds to a human readable format. 
      *
      * You can supply int 129600, this function returns: "1 days 12:0:0".
      * 
